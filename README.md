@@ -14,4 +14,4 @@ go get -u github.com/achiku/mkimg
 mkimg -txt="それは本当にそう" -fontfile=./Koruri-Bold.ttf
 ```
 
-![img](./img/out.png)
+![img](./img/shs.png)
