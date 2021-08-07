@@ -85,7 +85,7 @@ func main() {
 	y := (height + int(fontsize)/2) / 2
 	dr.Dot.Y = fixed.I(y)
 
-	dr.DrawString(*txt)
+	drawStringDebug(*txt, dr)
 
 	outfile, err := os.Create(*out)
 	if err != nil {
