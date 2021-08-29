@@ -24,6 +24,7 @@ var (
 	w     = flag.Int("width", 1200, "image width")
 	h     = flag.Int("height", 630, "image height")
 	space = flag.Bool("space", false, "space image")
+	debug = flag.Bool("debug", false, "debug output")
 )
 
 func main() {
@@ -80,12 +81,22 @@ func main() {
 		Face: face,
 		Dot:  fixed.Point26_6{},
 	}
-	x := (fixed.I(width) - dr.MeasureString(*txt)) / 2
-	dr.Dot.X = x
-	y := (height + int(fontsize)/2) / 2
-	dr.Dot.Y = fixed.I(y)
+	// x := (fixed.I(width) - dr.MeasureString(*txt)) / 2
+	// dr.Dot.X = x
+	// y := (height + int(fontsize)/2) / 2
+	// dr.Dot.Y = fixed.I(y)
 
-	dr.DrawString(*txt)
+	dOpt := &DrawStringOpts{
+		ImageWidth:       fixed.I(width),
+		ImageHeight:      fixed.I(height),
+		Verbose:          *debug,
+		FontSize:         fixed.I(int(fontsize)),
+		LineSpace:        fixed.I(5),
+		VerticalMargin:   fixed.I(10),
+		HorizontalMargin: fixed.I(40),
+	}
+
+	DrawStringWrapped(dr, *txt, dOpt)
 
 	outfile, err := os.Create(*out)
 	if err != nil {
