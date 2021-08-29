@@ -38,7 +38,7 @@ mkimg -txt="それは本当にそう" -fontfile=./Koruri-Bold.ttf
 
 
 ```
-mkimg -fontfile=./Koruri-Bold.ttf -fontsize=70 -outfile=out.png -txt="あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。" -space
+mkimg -fontfile=./Koruri-Bold.ttf -fontsize=70 -outfile=out.png -space -txt="あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。"
 ```
 
-![img](./img/space-kenji.png)
+![img](./img/space-kenji-2.png)
