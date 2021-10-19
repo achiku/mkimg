@@ -19,6 +19,7 @@ import (
 var (
 	txt   = flag.String("txt", "hello, world!", "text to image")
 	out   = flag.String("outfile", "out.png", "output image path")
+	bg    = flag.String("background", "", "background image path")
 	fs    = flag.Float64("fontsize", 100.0, "font size")
 	ff    = flag.String("fontfile", "", "ttf font file path")
 	w     = flag.Int("width", 1200, "image width")
@@ -41,6 +42,23 @@ func main() {
 	)
 	if *space {
 		sf, err := os.Open(path.Join("templates", "space2.png"))
+		if err != nil {
+			log.Fatal(err)
+		}
+		dimg, _, err := image.Decode(sf)
+		if err != nil {
+			log.Fatalf("image.Decode failed: %s", err)
+		}
+
+		img, ok = dimg.(draw.Image)
+		if !ok {
+			log.Fatal(err)
+		}
+		bk = image.NewRGBA(image.Rect(0, 0, width, height))
+		draw.Draw(bk, img.Bounds(), img, image.ZP, draw.Src)
+		color = image.White
+	} else if *bg != "" {
+		sf, err := os.Open(*bg)
 		if err != nil {
 			log.Fatal(err)
 		}
