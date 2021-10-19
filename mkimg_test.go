@@ -36,8 +36,7 @@ func TestDraw(t *testing.T) {
 func TestDrawStringWrapped(t *testing.T) {
 	width, height := 1200, 630
 	fontsize := 20.0
-	// txt := "あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。"
-	txt := "今やろうとしている事は「巨大な価値移動API(≒Visa)を使って現代の人が持つ痛みを解決するソフトウェアカンパニーを作る事」で、その為には消費財側の人たちが蓄積してきた知見が必要なんすよね。最強のチームを作ってブチ抜くぞ。金融実務の知識はその一部であって全てではない。自分たちはあくまでもソフトウェカンパニーであり、そのソフトウェアは現代に生きる人達が持っているまだ言語化されていない課題を解決するもの、新しいカテゴリーを切り開くもの。だから色んな領域の方の知識と経験が必要なんです。"
+	txt := "あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。"
 	bk := image.NewRGBA(image.Rect(0, 0, width, height))
 	draw.Draw(bk, bk.Bounds(), image.White, image.ZP, draw.Src)
 
@@ -68,7 +67,7 @@ func TestDrawStringWrapped(t *testing.T) {
 	dOpt := &DrawStringOpts{
 		ImageWidth:       fixed.I(width),
 		ImageHeight:      fixed.I(height),
-		Verbose:          true,
+		Verbose:          testing.Verbose(),
 		FontSize:         fixed.I(int(fontsize)),
 		LineSpace:        fixed.I(5),
 		VerticalMargin:   fixed.I(10),
@@ -86,4 +85,21 @@ func TestDrawStringWrapped(t *testing.T) {
 	if err := png.Encode(outfile, bk); err != nil {
 		log.Fatal(err)
 	}
+}
+
+func TestCalculateInitialPoint(t *testing.T) {
+	width, height := 1200, 630
+	fontsize := 20.0
+	txt := "あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。"
+	dOpt := &DrawStringOpts{
+		ImageWidth:       fixed.I(width),
+		ImageHeight:      fixed.I(height),
+		Verbose:          testing.Verbose(),
+		FontSize:         fixed.I(int(fontsize)),
+		LineSpace:        fixed.I(5),
+		VerticalMargin:   fixed.I(10),
+		HorizontalMargin: fixed.I(40),
+	}
+
+	CalculateInitialPoint(txt, dOpt)
 }
