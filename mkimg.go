@@ -31,7 +31,6 @@ func DrawStringWrapped(d *font.Drawer, s string, opt *DrawStringOpts) {
 		if prevC >= 0 {
 			d.Dot.X += d.Face.Kern(prevC, c)
 		}
-		// dr, mask, maskp, advance, ok := d.Face.Glyph(d.Dot, c)
 		advance, ok := d.Face.GlyphAdvance(c)
 		if !ok {
 			// TODO: is falling back on the U+FFFD glyph the responsibility of
@@ -46,7 +45,7 @@ func DrawStringWrapped(d *font.Drawer, s string, opt *DrawStringOpts) {
 			d.Dot.Y = originalY + d.Dot.Y + opt.LineSpace
 			d.Dot.X = originalX
 		}
-		dr, mask, maskp, advance, ok := d.Face.Glyph(d.Dot, c)
+		dr, mask, maskp, advance, _ := d.Face.Glyph(d.Dot, c)
 		if opt.Verbose {
 			fmt.Printf(
 				"%#U: maskp=%+v, advance=%d, X=%d, w=%d, Y=%d, h=%d, realW=%d\n",
@@ -76,4 +75,10 @@ func MeasureString(f font.Face, s string) (advance fixed.Int26_6) {
 		prevC = c
 	}
 	return advance
+}
+
+// CalculateInitialPoint calculate starting point
+func CalculateInitialPoint(s string, opt *DrawStringOpts) {
+	widthWithMargin := opt.ImageWidth - opt.HorizontalMargin*2
+	fmt.Printf("widthWithMargin=%d\n", widthWithMargin)
 }
